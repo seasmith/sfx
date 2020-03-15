@@ -1,0 +1,43 @@
+---
+output: github_document
+---
+
+# Extra 'sf' Simple Features manipulations
+
+[![CRAN](http://www.r-pkg.org/badges/version/sfx)](https://cran.r-project.org/package=sfx)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+
+```{r, messages=FALSE, warnings=FALSE, collapse=TRUE}
+library(dplyr)
+library(sfx)
+
+nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
+data(ngp, package = "sfx")
+```
+
+The `sfx::st_any_*()` functions return a logical vector which may be used in `dplyr::filter()` (and possibly `[.data.table`).
+
+```{r, collapse=TRUE}
+nrow(ngp)
+
+# Filter rows that intersect with nc
+ngp %>%
+  filter(st_any_intersects(ngp, nc))
+```
+
+The `sfx::st_*_join()` functions mimic the `dplyr` equivalents and some are just wrappers around `sf::st_join()`.
+
+```{r, collapse=TRUE}
+ngp %>%
+  sf::st_transform(sf::st_crs(nc)) %>%
+  st_semi_join(nc)
+```
+
+The `sfx::st_ul_*()` functions provide unitless equivalents of the `sf` functions.
+
+```{r, collapse=TRUE}
+# st_area would error in this case.
+nc %>%
+  filter(st_ul_area(nc) > 1e9)
+```
