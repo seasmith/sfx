@@ -1,0 +1,5 @@
+^data-raw$
+^README\.Rmd$
+^README\.MD$
+^README\.html$
+^\.vscode$
