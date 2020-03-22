@@ -4,6 +4,11 @@ states_map <- states_map %>%
            crs = st_crs(4326))
 
 states_map <- states_map %>%
-    group_by(group) %>%
+    group_by(group, region) %>%
     summarize(geometry = st_cast(st_combine(geometry), "MULTILINESTRING")) %>%
-    ungroup()
+    ungroup() %>%
+    st_cast("MULTIPOLYGON")
+
+
+states_map <- states_map %>%
+    lwgeom::st_make_valid()

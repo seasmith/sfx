@@ -1,8 +1,9 @@
 #' Example data
 #'
+#' @description 
 #' \code{ngp} contains data for U.S. Natural
-#' Gas Pipelines (2018-04-01) courtesy of
-#' Homeland Infrastructure Foundation-Level 
+#' Gas Pipelines minus Alaska (2018-04-01) courtesy of
+#' Homeland Infrastructure Foundation-Level
 #' Data (HIFLD).
 #'
 #' \code{states_map} is a map of the lower-48

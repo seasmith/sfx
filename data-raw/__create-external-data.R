@@ -1,6 +1,8 @@
 library(sf)
 library(dplyr)
 library(ggplot2)
+library(sfx)
+library(rmapshaper)
 
 source("data-raw/ngp-data.R")
 source("data-raw/states-map.R")

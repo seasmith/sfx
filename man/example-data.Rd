@@ -6,7 +6,11 @@
 \alias{ngp}
 \alias{states_map}
 \title{Example data}
-\format{An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 33806 rows and 6 columns.}
+\format{
+An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 33642 rows and 6 columns.
+
+An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 63 rows and 3 columns.
+}
 \usage{
 ngp
 
@@ -14,11 +18,10 @@ states_map
 }
 \description{
 \code{ngp} contains data for U.S. Natural
-Gas Pipelines (2018-04-01) courtesy of
-Homeland Infrastructure Foundation-Level 
+Gas Pipelines minus Alaska (2018-04-01) courtesy of
+Homeland Infrastructure Foundation-Level
 Data (HIFLD).
-}
-\details{
+
 \code{states_map} is a map of the lower-48
 United States of America.
 }
