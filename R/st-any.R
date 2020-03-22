@@ -1,7 +1,13 @@
 #' @importFrom magrittr %>%
 NULL
 
-#' Check for minimum and maximum occurences of TRUE
+#' Check for minimum and maximum occurences of \code{TRUE}
+#' from a binary logical function.
+#'
+#' Converts a logical matrix into a more manageable logical
+#' vector.  Each row of the logical matrix must meet the
+#' min and max \code{TRUE} threshold (\code{1} and \code{Inf}
+#' by default, respectively).
 #'
 #' @param x (sgbp/matrix) Return object of a simple feature
 #'   binary logical function.
@@ -9,6 +15,22 @@ NULL
 #'   Default is \code{1L}.
 #' @param at_most (integer) Maximum occurences of \code{TRUE}.
 #'   Default is \code{Inf}.
+#'
+#' @examples
+#' library(sf)
+#' data(ngp)
+#' data(states_map)
+#'
+#' i <- ngp %>%
+#'   st_intersects(states_map) %>%
+#'
+#' i %>%
+#'   st_any() %>%
+#'   head()
+#'
+#' i %>%
+#'   st_any(3, 10) %>%
+#'   head()
 #'
 #' @rdname st_any
 #' @export

@@ -2,6 +2,13 @@
 #'
 #' @inheritParams sf::geos_measures
 #'
+#' @examples
+#' library(dplyr)
+#' data(states_map)
+#'
+#' states_map %>%
+#'   filter(sfx::st_ul_area(states_map) > 250e9)
+#'
 #' @name unitless_measures
 #' @export
 st_ul_area <- function (x, ...) unclass(sf::st_area(x, ...))

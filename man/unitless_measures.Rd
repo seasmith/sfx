@@ -11,9 +11,16 @@ st_ul_area(x, ...)
 
 st_ul_length(x)
 
-st_ul_distance(x, y, ..., dist_fun, by_element = FALSE,
-  which = ifelse(isTRUE(sf::st_is_longlat(x)), "Great Circle",
-  "Euclidean"), par = 0, tolerance = 0)
+st_ul_distance(
+  x,
+  y,
+  ...,
+  dist_fun,
+  by_element = FALSE,
+  which = ifelse(isTRUE(sf::st_is_longlat(x)), "Great Circle", "Euclidean"),
+  par = 0,
+  tolerance = 0
+)
 }
 \arguments{
 \item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}}
@@ -34,4 +41,12 @@ st_ul_distance(x, y, ..., dist_fun, by_element = FALSE,
 }
 \description{
 Unitless measures
+}
+\examples{
+library(dplyr)
+data(states_map)
+
+states_map \%>\%
+  filter(sfx::st_ul_area(states_map) > 250e9)
+
 }

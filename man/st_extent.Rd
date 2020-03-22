@@ -15,3 +15,24 @@ st_extent(x, type = "sf")
 \description{
 Return the bounding box as 'sf' or 'sfc'
 }
+\examples{
+
+library(dplyr)
+library(ggplot2)
+data(states_map)
+
+tx_extent <- states_map \%>\%
+  filter(region == "texas") \%>\%
+  st_extent()
+
+class(tx_extent)
+
+# Can use in joins
+ngp \%>\%
+  st_anti_join(tx_extent) \%>\%
+  ggplot() +
+  geom_sf(data = states_map) +
+  geom_sf(data = tx_extent, fill = NA) +
+  geom_sf(color = "red")
+
+}

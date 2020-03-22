@@ -17,44 +17,45 @@
 \alias{st_any_within}
 \title{Check for any occurences of \code{TRUE}}
 \usage{
-st_any_intersects(x, y, at_least = 1L, at_most = Inf,
-  match_crs = TRUE, ...)
+st_any_intersects(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_contains(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE,
-  ...)
+st_any_contains(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_contains_properly(x, y, at_least = 1L, at_most = Inf,
-  match_crs = TRUE, ...)
+st_any_contains_properly(
+  x,
+  y,
+  at_least = 1L,
+  at_most = Inf,
+  match_crs = TRUE,
+  ...
+)
 
-st_any_covered_by(x, y, at_least = 1L, at_most = Inf,
-  match_crs = TRUE, ...)
+st_any_covered_by(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_covers(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE,
-  ...)
+st_any_covers(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_crosses(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE,
-  ...)
+st_any_crosses(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_disjoint(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE,
-  ...)
+st_any_disjoint(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_equals(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE,
-  ...)
+st_any_equals(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_equals_exact(x, y, at_least = 1L, at_most = Inf,
-  match_crs = TRUE, ...)
+st_any_equals_exact(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_is_within_distance(x, y, at_least = 1L, at_most = Inf,
-  match_crs = TRUE, ...)
+st_any_is_within_distance(
+  x,
+  y,
+  at_least = 1L,
+  at_most = Inf,
+  match_crs = TRUE,
+  ...
+)
 
-st_any_overlaps(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE,
-  ...)
+st_any_overlaps(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_touches(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE,
-  ...)
+st_any_touches(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 
-st_any_within(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE,
-  ...)
+st_any_within(x, y, at_least = 1L, at_most = Inf, match_crs = TRUE, ...)
 }
 \arguments{
 \item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}}

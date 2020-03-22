@@ -21,10 +21,55 @@ st_anti_join(x, y, join = sf::st_intersects, ...)
 
 \item{y}{object of class \code{sf}}
 
-\item{...}{arguments passed on to the \code{join} function (e.g. \code{prepared}, or a pattern for \link{st_relate})}
+\item{...}{arguments passed on to the \code{join} function (e.g. \code{prepared}, or a pattern for \link[sf]{st_relate})}
 
-\item{join}{geometry predicate function with the same profile as \link{st_intersects}; see details}
+\item{join}{geometry predicate function with the same profile as \link[sf]{st_intersects}; see details}
 }
 \description{
-Join two 'sf' objects.
+Both `st_left_join()` and `st_inner_join()` are
+wrappers around `sf::st_join()` with appropriate
+argument handling for `left`.
+
+Both `st_anti_join()` and `st_semi_join()` are
+wrappers around `sfx::st_any()` used within
+`dplyr::filter()` (plus the application of
+logical `!` where appropriate).
+}
+\examples{
+library(sf)
+library(ggplot2)
+library(dplyr)
+data(states_map)
+data(ngp)
+
+show_map <- function (x) {
+    ggplot(x) +
+        geom_sf(data = tx) +
+        geom_sf(color = "red") +
+        theme_void()
+}
+
+# MUTLIPOLYGON of the US state of Texas
+tx <- states_map \%>\%
+    filter(region == "texas")
+
+# [Semi-join] Intersects (Default)
+ngp \%>\%
+        st_semi_join(tx) \%>\%
+        show_map()
+
+# [Semi-join] Coveredy by
+ngp \%>\%
+        st_semi_join(tx, sf::st_covered_by) \%>\%
+        show_map()
+
+# [Anti-join] Intersects (Default)
+ngp \%>\%
+        st_anti_join(tx) \%>\%
+        show_map()
+
+# [Inner-join] Intersects (Default)
+ngp \%>\%
+  st_inner_join(tx)
+
 }

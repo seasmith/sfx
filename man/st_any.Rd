@@ -2,7 +2,8 @@
 % Please edit documentation in R/st-any.R
 \name{st_any}
 \alias{st_any}
-\title{Check for minimum and maximum occurences of TRUE}
+\title{Check for minimum and maximum occurences of \code{TRUE}
+from a binary logical function.}
 \usage{
 st_any(x, at_least = 1L, at_most = Inf)
 }
@@ -17,5 +18,25 @@ Default is \code{1L}.}
 Default is \code{Inf}.}
 }
 \description{
-Check for minimum and maximum occurences of TRUE
+Converts a logical matrix into a more manageable logical
+vector.  Each row of the logical matrix must meet the
+min and max \code{TRUE} threshold (\code{1} and \code{Inf}
+by default, respectively).
+}
+\examples{
+library(sf)
+data(ngp)
+data(states_map)
+
+i <- ngp \%>\%
+  st_intersects(states_map) \%>\%
+
+i \%>\%
+  st_any() \%>\%
+  head()
+
+i \%>\%
+  st_any(3, 10) \%>\%
+  head()
+
 }
