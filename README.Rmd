@@ -8,37 +8,46 @@ output: github_document
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
-```{r, messages=FALSE, warnings=FALSE, collapse=TRUE}
-library(dplyr)
-library(sfx)
+See the [Reference section][ref_sec] for detailed examples.
 
-nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
-data(ngp, package = "sfx")
-```
+[ref_sec]: http://seasmith.github.io/packages/sfx/reference/index.html
 
-The `sfx::st_any_*()` functions return a logical vector which may be used in `dplyr::filter()` (and possibly `[.data.table`).
+Function list:
 
-```{r, collapse=TRUE}
-nrow(ngp)
+```{r, eval=FALSE}
+# Convert logical matrix to logical vector
+st_any
 
-# Filter rows that intersect with nc
-ngp %>%
-  filter(st_any_intersects(ngp, nc)) %>%
-  nrow()
-```
+# Binary logical helpers
+st_any_contains
+st_any_contains_properly
+st_any_covered_by
+st_any_covers
+st_any_crosses
+st_any_disjoint
+st_any_equals
+st_any_equals_exact
+st_any_intersects
+st_any_is_within_distance
+st_any_overlaps
+st_any_touches
+st_any_within
 
-The `sfx::st_*_join()` functions mimic the `dplyr` equivalents and some are just wrappers around `sf::st_join()`.
+# Joins
+st_inner_join
+st_left_join
+st_anti_join
+st_semi_join
 
-```{r, collapse=TRUE}
-ngp %>%
-  sf::st_transform(sf::st_crs(nc)) %>%
-  st_semi_join(nc)
-```
+# Unitless dimensions
+st_ul_area
+st_ul_distance
+st_ul_length
 
-The `sfx::st_ul_*()` functions provide unitless equivalents of the `sf` functions.
-
-```{r, collapse=TRUE}
-# st_area would error in this case.
-nc %>%
-  filter(st_ul_area(nc) > 1e9)
+# Bounding-box helpers
+st_extent
+st_xdist
+st_ydist
+st_xlim
+st_ylim
 ```

@@ -18,5 +18,6 @@ Imports:
     magrittr,
     sf
 Suggests:
-    ggplot2
+    ggplot2,
+    lwgeom
 RoxygenNote: 7.1.0

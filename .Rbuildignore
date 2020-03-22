@@ -1,4 +1,5 @@
 ^data-raw$
+^docs$
 ^README\.Rmd$
 ^README\.MD$
 ^README\.html$
