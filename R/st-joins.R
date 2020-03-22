@@ -1,14 +1,14 @@
 #' Join two 'sf' objects.
 #'
 #' @description
-#' Both `st_left_join()` and `st_inner_join()` are
-#' wrappers around `sf::st_join()` with appropriate
-#' argument handling for `left`.
+#' Both \code{st_left_join()} and \code{st_inner_join()}
+#' are wrappers around \code{sf::st_join()} with 
+#' appropriate argument handling for \code{left}.
 #'
-#' Both `st_anti_join()` and `st_semi_join()` are
-#' wrappers around `sfx::st_any()` used within
-#' `dplyr::filter()` (plus the application of
-#' logical `!` where appropriate).
+#' Both \code{st_anti_join()} and \code{st_semi_join()}
+#' are wrappers around \code{sfx::st_any()} used within
+#' \code{dplyr::filter()} (plus the application of
+#' logical \code{!} where appropriate).
 #'
 #' @inheritParams sf::st_join
 #'

@@ -35,4 +35,10 @@ ngp \%>\%
   geom_sf(data = tx_extent, fill = NA) +
   geom_sf(color = "red")
 
+states_map \%>\%
+  st_anti_join(tx_extent) \%>\%
+  ggplot() +
+  geom_sf() +
+  geom_sf(data = tx_extent, fill = NA)
+
 }

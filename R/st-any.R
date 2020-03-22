@@ -22,7 +22,7 @@ NULL
 #' data(states_map)
 #'
 #' i <- ngp %>%
-#'   st_intersects(states_map) %>%
+#'   st_intersects(states_map)
 #'
 #' i %>%
 #'   st_any() %>%
@@ -32,6 +32,10 @@ NULL
 #'   st_any(3, 10) %>%
 #'   head()
 #'
+#' j <- ngp %>%
+#'   st_any_intersects(states_map)
+#'
+#' head(j)
 #' @rdname st_any
 #' @export
 st_any <- function (x, at_least = 1L, at_most = Inf) UseMethod("st_any")

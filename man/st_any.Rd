@@ -29,7 +29,7 @@ data(ngp)
 data(states_map)
 
 i <- ngp \%>\%
-  st_intersects(states_map) \%>\%
+  st_intersects(states_map)
 
 i \%>\%
   st_any() \%>\%
@@ -39,4 +39,8 @@ i \%>\%
   st_any(3, 10) \%>\%
   head()
 
+j <- ngp \%>\%
+  st_any_intersects(states_map)
+
+head(j)
 }
