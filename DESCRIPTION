@@ -9,6 +9,8 @@ Authors@R: c(
 Description: Filter, join, measure, and other functions to extend the 'sf' 
     package.
 License: GPL-2
+URL: https://github.com/seasmith/sfx
+BugReports: https://github.com/seasmith/sfx/issues
 Encoding: UTF-8
 LazyData: true
 Imports:
@@ -17,4 +19,4 @@ Imports:
     sf
 Suggests:
     ggplot2
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
