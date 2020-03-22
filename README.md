@@ -19,36 +19,17 @@ used in `dplyr::filter()` (and possibly `[.data.table`).
 
 ``` r
 nrow(ngp)
-## [1] 33806
+## [1] 33642
 
 # Filter rows that intersect with nc
 ngp %>%
-  filter(st_any_intersects(ngp, nc))
+  filter(st_any_intersects(ngp, nc)) %>%
+  nrow()
 ## CRS of 'y' does not match 'x'.
 ## Setting CRS of 'y' to match 'x'.
 ## 4326+proj=longlat +datum=WGS84 +no_defs
 ## although coordinates are longitude/latitude, st_intersects assumes that they are planar
-## Simple feature collection with 100 features and 5 fields
-## geometry type:  MULTILINESTRING
-## dimension:      XY
-## bbox:           xmin: -82.91046 ymin: 34.8737 xmax: -77.02528 ymax: 36.99648
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 100 x 6
-##      FID TYPEPIPE Operator Shape_Leng Shape__Length
-##  * <int> <chr>    <chr>         <dbl>         <dbl>
-##  1  1904 Intrast~ Cardina~     1.29         149065.
-##  2  2753 Interst~ Columbi~     0.0962        13218.
-##  3  4635 Interst~ East Te~     0.0710         8924.
-##  4  4636 Interst~ East Te~     1.34         156090.
-##  5  3849 Interst~ Columbi~     0.0539         7373.
-##  6  3850 Interst~ Columbi~     0.0962        13218.
-##  7 24720 Intrast~ Public ~     0.190         24326.
-##  8 24721 Intrast~ Public ~     0.157         17605.
-##  9 24722 Intrast~ Public ~     0.216         24234.
-## 10 24723 Intrast~ Public ~     0.0822        10307.
-## # ... with 90 more rows, and 1 more variable: geometry <MULTILINESTRING
-## #   [°]>
+## [1] 100
 ```
 
 The `sfx::st_*_join()` functions mimic the `dplyr` equivalents and some
@@ -74,10 +55,10 @@ ngp %>%
 ##  4  4636 Interst~ East Te~     1.34         156090.
 ##  5  3849 Interst~ Columbi~     0.0539         7373.
 ##  6  3850 Interst~ Columbi~     0.0962        13218.
-##  7 24720 Intrast~ Public ~     0.190         24326.
-##  8 24721 Intrast~ Public ~     0.157         17605.
-##  9 24722 Intrast~ Public ~     0.216         24234.
-## 10 24723 Intrast~ Public ~     0.0822        10307.
+##  7 27590 Interst~ Transco~     0.133         15471.
+##  8 27591 Interst~ Transco~     0.414         48610.
+##  9 27592 Interst~ Transco~     0.0686         8114.
+## 10 27594 Interst~ Transco~     0.0950        13093.
 ## # ... with 90 more rows, and 1 more variable: geometry <MULTILINESTRING
 ## #   [°]>
 ```

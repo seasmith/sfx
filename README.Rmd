@@ -23,7 +23,8 @@ nrow(ngp)
 
 # Filter rows that intersect with nc
 ngp %>%
-  filter(st_any_intersects(ngp, nc))
+  filter(st_any_intersects(ngp, nc)) %>%
+  nrow()
 ```
 
 The `sfx::st_*_join()` functions mimic the `dplyr` equivalents and some are just wrappers around `sf::st_join()`.
