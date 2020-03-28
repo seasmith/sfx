@@ -21,7 +21,7 @@ st_anti_join(x, y, join = sf::st_intersects, ...)
 
 \item{y}{object of class \code{sf}}
 
-\item{...}{arguments passed on to the \code{join} function (e.g. \code{prepared}, or a pattern for \link[sf]{st_relate})}
+\item{...}{arguments passed on to the \code{join} or \code{.predicate} function, e.g. \code{prepared}, or a pattern for \link[sf]{st_relate}}
 
 \item{join}{geometry predicate function with the same profile as \link[sf]{st_intersects}; see details}
 }

@@ -32,5 +32,15 @@ st_ylim(x)
 \item{x}{(bbox/sfc/sf) Either a bounding box or a geometry.}
 }
 \description{
-Get one-set of the bounding box
+Return either the x-axis limits
+or y-axis limits.
+}
+\examples{
+data(states_map)
+
+x <- st_xlim(states_map)
+x
+
+# The crs is preserved
+st_crs(x)
 }
