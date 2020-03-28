@@ -36,6 +36,7 @@ Return either the x-axis limits
 or y-axis limits.
 }
 \examples{
+library(sf)
 data(states_map)
 
 x <- st_xlim(states_map)
