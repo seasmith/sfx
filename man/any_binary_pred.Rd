@@ -80,3 +80,15 @@ a call to \code{>=} and \code{<=} -- verifying that a
 minimamal and maximal number of occurences of \code{TRUE}
 have been achieved.
 }
+\examples{
+library(sf)
+data(ngp)
+data(states_map)
+
+# Works like normal 'sf' binary logical
+# operators, except it returns a vector.
+i <- ngp \%>\%
+  st_any_intersects(states_map)
+
+head(i)
+}

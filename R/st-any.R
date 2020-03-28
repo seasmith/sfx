@@ -99,6 +99,17 @@ st_any_bin_log_factory <- function(fun) {
 #' @param ... (various) Arguments passed on to the underlying binary logical
 #'   operator.
 #'
+#' @examples
+#' library(sf)
+#' data(ngp)
+#' data(states_map)
+#'
+#' # Works like normal 'sf' binary logical
+#' # operators, except it returns a vector.
+#' i <- ngp %>%
+#'   st_any_intersects(states_map)
+#'
+#' head(i)
 #' @name any_binary_pred
 #' @export
 st_any_intersects         <- st_any_bin_log_factory(sf::st_intersects)
