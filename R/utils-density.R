@@ -78,7 +78,7 @@ sf_compute_bkde2D <- function (data, return_geometry = "point",
                                range.x = NULL, truncate = TRUE) {
 
   check_for_coords(data)
-  bw <- check_for_bw(bw, data, m = "kde2d")
+  bw <- check_for_bw(bw, data, m = "bkde2D")
 
   if (length(grid_size) == 1) grid_size <- rep(grid_size, 2)
 
