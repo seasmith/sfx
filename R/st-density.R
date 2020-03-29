@@ -1,7 +1,7 @@
 
 #' Compute 2D density
 #'
-#' Choose from methods \code{"kde2d"} and \code{"kde"},
+#' Choose from methods \code{"kde2d"} and \code{"bkde2D"},
 #' and various return geometries
 #'
 #' @param x (sf/sfc) Spatial data
@@ -31,7 +31,6 @@ st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
 
   if (is.null(n)) {
     n <- switch(method,
-                kde = ,
                 kde2d = 200,
                 bkde2D = c(51, 51))
   }
@@ -41,9 +40,7 @@ st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
                  kde2d = sf_compute_kde2d(data_coords, return_geometry, bw),
 
                  bkde2D = sf_compute_bkde2D(data_coords, return_geometry,
-                                            bw, n, range.x, truncate),
-
-                 kde   = {})
+                                            bw, n, range.x, truncate))
 
   switch(return_geometry,
 

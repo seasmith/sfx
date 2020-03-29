@@ -56,9 +56,10 @@ estimate_bw.default <- function (data, method = "kde2d") {
 
   bw <- switch(method,
 
-         kde = {
-           mean(c(stats::bw.SJ(data[, "X"]), stats::bw.SJ(data[, "Y"])))
-         },
+         # Preserve in case I want to use stats::bw.SJ
+         # kde2d = {
+         #   mean(c(stats::bw.SJ(data[, "X"]), stats::bw.SJ(data[, "Y"])))
+         # },
 
          bkde2D = {
            c(KernSmooth::dpik(data[, "X"]), KernSmooth::dpik(data[, "Y"]))

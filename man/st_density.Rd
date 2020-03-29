@@ -57,6 +57,6 @@ st_density(
 \item{truncate}{(logical) See \code{KernSmooth::bkde2D}}
 }
 \description{
-Choose from methods \code{"kde2d"} and \code{"kde"},
+Choose from methods \code{"kde2d"} and \code{"bkde2D"},
 and various return geometries
 }
