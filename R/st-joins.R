@@ -13,9 +13,9 @@
 #' @inheritParams sf::st_join
 #'
 #' @examples
-#' library(sf)
-#' library(ggplot2)
-#' library(dplyr)
+#' suppressPackageStartupMessages(library(sf))
+#' suppressPackageStartupMessages(library(ggplot2))
+#' suppressPackageStartupMessages(library(dplyr))
 #' data(states_map)
 #' data(ngp)
 #'

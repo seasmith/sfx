@@ -43,7 +43,7 @@ st_ul_distance(
 Unitless measures
 }
 \examples{
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 data(states_map)
 
 states_map \%>\%

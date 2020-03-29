@@ -3,7 +3,7 @@
 #' @inheritParams sf::geos_measures
 #'
 #' @examples
-#' library(dplyr)
+#' suppressPackageStartupMessages(library(dplyr))
 #' data(states_map)
 #'
 #' states_map %>%

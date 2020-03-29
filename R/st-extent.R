@@ -6,8 +6,8 @@
 #'
 #' @examples
 #'
-#' library(dplyr)
-#' library(ggplot2)
+#' suppressPackageStartupMessages(library(dplyr))
+#' suppressPackageStartupMessages(library(ggplot2))
 #' data(states_map)
 #'
 #' tx_extent <- states_map %>%

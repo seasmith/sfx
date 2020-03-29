@@ -36,9 +36,9 @@ are wrappers around \code{sfx::st_any()} used within
 logical \code{!} where appropriate).
 }
 \examples{
-library(sf)
-library(ggplot2)
-library(dplyr)
+suppressPackageStartupMessages(library(sf))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(dplyr))
 data(states_map)
 data(ngp)
 
