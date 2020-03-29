@@ -14,7 +14,7 @@ See the [Reference section][ref_sec] for detailed examples.
 
 [ref_sec]: http://seasmith.github.io/packages/sfx/reference/index.html
 
-```{r}
+```{r, collapse=TRUE}
 library(sf)
 library(sfx)
 library(ggplot2)

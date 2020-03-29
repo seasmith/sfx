@@ -15,6 +15,7 @@ for detailed examples.
 
 ``` r
 library(sf)
+## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3
 library(sfx)
 library(ggplot2)
 
@@ -22,16 +23,12 @@ olinda1 <- sf::read_sf(system.file("shape/olinda1.shp", package = "sf"))
 
 olinda1_centroids <- olinda1  %>%
     sf::st_centroid()
-```
+## Warning in st_centroid.sf(.): st_centroid assumes attributes are constant over
+## geometries of x
+## Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =
+## of_largest_polygon): st_centroid does not give correct centroids for longitude/
+## latitude data
 
-    ## Warning in st_centroid.sf(.): st_centroid assumes attributes are constant over
-    ## geometries of x
-
-    ## Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =
-    ## of_largest_polygon): st_centroid does not give correct centroids for longitude/
-    ## latitude data
-
-``` r
 olinda1_centroids %>%
     st_density() %>%
     ggplot() +
@@ -39,13 +36,13 @@ olinda1_centroids %>%
     geom_sf(aes(color = density)) +
     scale_color_viridis_c() +
     theme_void()
+## No bandwidth provided, using estimate: 0.0266888485440378No bandwidth provided, using estimate: 0.0218299889056418
 ```
-
-    ## No bandwidth provided, using estimate: 0.0266888485440378No bandwidth provided, using estimate: 0.0218299889056418
 
 ![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ``` r
+
 olinda1_centroids %>%
     st_density(method = "bkde2D") %>%
     ggplot() +
@@ -53,9 +50,8 @@ olinda1_centroids %>%
     geom_sf(aes(color = density)) +
     scale_color_viridis_c() +
     theme_void()
+## No bandwidth provided, using estimate: 0.00440286118167917No bandwidth provided, using estimate: 0.00457288709889236
 ```
-
-    ## No bandwidth provided, using estimate: 0.0266888485440378No bandwidth provided, using estimate: 0.0218299889056418
 
 ![](README_files/figure-gfm/unnamed-chunk-1-2.png)<!-- -->
 
