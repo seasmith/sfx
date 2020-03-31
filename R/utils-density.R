@@ -1,3 +1,5 @@
+names_exist <- function (x, n) match(n, colnames(x), nomatch = 0L) > 0L
+
 check_for_coords <- function (x) {
   if (!all(names_exist(x, c("X", "Y"))))
     stop("[compute]: Data must be coordinate matrix", call. = FALSE)
@@ -12,14 +14,14 @@ check_for_bw <- function (x, d, m) {
   x
 }
 
-expand_density <- function (x) {
-  dx <- expand.grid(x = x$x, y = x$y)
-  dx$z <- as.vector(x$z)
+expand_density <- function (x, y, z) {
+  df <- expand.grid(x = x, y = y)
+  df$z <- as.vector(z)
   names(df) <- c("x", "y", "density")
   df
 }
 
-interpolate_point <- function (raw, x, y, z) {
+interpolate_density <- function (raw, x, y, z) {
     ix <- findInterval(raw[, "X"], x)
     iy <- findInterval(raw[, "Y"], y)
     ii <- cbind(ix, iy)
@@ -36,9 +38,6 @@ interpolate_point <- function (raw, x, y, z) {
 as_matrix <- function (...) {
   as.matrix(data.frame(...))
 }
-
-names_exist <- function (x, n) match(n, colnames(x), nomatch = 0L) > 0L
-
 
 estimate_bw <- function (data, method = "kde2d") UseMethod("estimate_bw")
 
@@ -73,6 +72,29 @@ estimate_bw.default <- function (data, method = "kde2d") {
   bw
 }
 
+# Reshape density to grid (expand_density()) or point (interpolate_density())
+# @param raw (tibble) Original data (used to create density)
+# @param grid (tibble) Computed density; must contain x, y, and z
+reshape_density <- function (raw, grid, return_geometry) {
+
+
+  switch(return_geometry,
+
+         point = {
+           df <- interpolate_density(data, grid$x, grid$y, grid$z)
+         },
+
+         grid    = ,
+         raster  = ,
+         polygon = ,
+         contour = ,
+         isoband = {
+           df <- expand_density(grid$x, grid$y, grid$z)
+         })
+  df$ndensity <- df$density / max(df$ndensity, na.rm = TRUE)
+  df
+}
+
 sf_compute_bkde2D <- function (data, return_geometry = "point",
                                bw = NULL, grid_size = c(51, 51),
                                range.x = NULL, truncate = TRUE) {
@@ -95,23 +117,8 @@ sf_compute_bkde2D <- function (data, return_geometry = "point",
   dens <- KernSmooth::bkde2D(as_matrix(x = data[, "X"], y = data[, "Y"]),
                              bw, grid_size, range.x, truncate)
 
-  switch(return_geometry,
-
-         point = {
-           df <- interpolate_point(data, dens$x1, dens$x2, dens$fhat)
-           df$ndensity <- df$density / max(df$density, na.rm = TRUE)
-         },
-
-         grid = {},
-
-         raster = {},
-
-         polygon = {},
-
-         contour = {},
-
-         isoband = {})
-
+  names(dens) <- c("x", "y", "z")
+  df <- reshape_density(data, dens, return_geometry)
   df
 }
 
@@ -121,24 +128,6 @@ sf_compute_kde2d <- function (data, return_geometry = "point",
   check_for_coords(data)
   bw <- check_for_bw(bw, data, m = "kde2d")
   dens <- MASS::kde2d(data[, "X"], data[, "Y"], h = bw, n = n)
-
-  switch(return_geometry,
-
-           point = {
-            df <- interpolate_point(data, dens$x, dens$y, dens$z)
-            df$ndensity <- df$density / max(df$density, na.rm = TRUE)
-           },
-
-           grid = ,
-
-           raster = {
-             df <- expand_density(dens)
-             df$ndensity <- df$density/max(df$density, na.rm = TRUE)
-           },
-
-           polygon = {},
-           contour = {},
-           isoband = {})
-
-    df
+  df <- reshape_density(data, dens, return_geometry)
+  df
 }
