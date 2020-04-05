@@ -76,12 +76,9 @@ estimate_bw.default <- function (data, method = "kde2d") {
 # @param raw (tibble) Original data (used to create density)
 # @param grid (tibble) Computed density; must contain x, y, and z
 reshape_density <- function (raw, grid, return_geometry) {
-
-
   switch(return_geometry,
-
          point = {
-           df <- interpolate_density(data, grid$x, grid$y, grid$z)
+           df <- interpolate_density(raw, grid$x, grid$y, grid$z)
          },
 
          grid    = ,
@@ -91,7 +88,7 @@ reshape_density <- function (raw, grid, return_geometry) {
          isoband = {
            df <- expand_density(grid$x, grid$y, grid$z)
          })
-  df$ndensity <- df$density / max(df$ndensity, na.rm = TRUE)
+  df$ndensity <- df$density / max(df$density, na.rm = TRUE)
   df
 }
 

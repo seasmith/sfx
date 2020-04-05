@@ -1,3 +1,4 @@
+# Isoband to raster: https://gist.github.com/mdsumner/a06faedbdf30b6d5c1820487f81a6959
 
 #' Compute 2D density
 #'
@@ -25,7 +26,7 @@ st_density <- function (x, return_geometry = "point", method = "kde2d",
 #' @export
 st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
                             bw = NULL, n = NULL, bins = NULL, range.x = NULL,
-                            truncate = TRUE) {
+                            truncate = TRUE, levels_low = NULL, levels_high = NULL) {
 
   data_coords <- sf::st_coordinates(x)
 
@@ -49,7 +50,24 @@ st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
             x$ndensity <- dens$ndensity
           },
 
-          raster = {})
+          raster = {},
+
+          isoband = {
+            if (is.null(levels_high) | is.null(levels_low)) {
+              levels_low <- .05 * (0:20)
+              levels_high <- .05 * (1:21)
+            }
+            iso_matrix <- tapply(dens$ndensity, dens[, c("y", "x")], identity)
+            iso_band <- isoband::isobands(unique(dens$x),
+                                          unique(dens$y),
+                                          iso_matrix,
+                                          levels_low = levels_low,
+                                          levels_high = levels_high)
+            iso_band <- isoband::iso_to_sfg(iso_band)
+            x <- st_sf(level = seq_len(length(iso_band)),
+                       crs = sf::st_crs(x),
+                       geometry = sf::st_sfc(iso_band))
+          })
 
   x
 
