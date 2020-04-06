@@ -39,6 +39,13 @@ olinda1_centroids %>%
     geom_sf(aes(color = density)) +
     scale_color_viridis_c() +
     theme_void()
+
+olinda1_centroids %>%
+    st_density("isoband") %>%
+    ggplot() +
+    geom_sf(aes(fill = level), alpha = 1) +
+    geom_sf(data = olinda1_centroids, color = "red", size = 2) +
+    scale_fill_viridis_c()
 ```
 
 Function list:

@@ -5,16 +5,21 @@
 \alias{example-data}
 \alias{ngp}
 \alias{states_map}
+\alias{wells}
 \title{Example data}
 \format{
 An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 33642 rows and 6 columns.
 
 An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 63 rows and 3 columns.
+
+An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 64677 rows and 8 columns.
 }
 \usage{
 ngp
 
 states_map
+
+wells
 }
 \description{
 \code{ngp} contains data for U.S. Natural
@@ -24,10 +29,15 @@ Data (HIFLD).
 
 \code{states_map} is a map of the lower-48
 United States of America.
+
+\code{wells} includes only Pennsylvannia wells from
+the U.S. Oil and Gas Wells (2019) courtesy of Homeland
+Infrastructure Foundation-Level Data (HIFLD).
 }
 \seealso{
 For more about the natural gas pipeline
-data, please see:
-https://www.arcgis.com/sharing/rest/content/items/f44e00fce8b943f69a40a2324cf49dfd/info/metadata/metadata.xml?format=default&output=html
+and wells data, please see:
+https://hifld-geoplatform.opendata.arcgis.com/datasets/natural-gas-pipelines
+https://hifld-geoplatform.opendata.arcgis.com/datasets/oil-and-natural-gas-wells
 }
 \keyword{datasets}

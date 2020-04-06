@@ -25,7 +25,9 @@ st_density(
   n = NULL,
   bins = NULL,
   range.x = NULL,
-  truncate = TRUE
+  truncate = TRUE,
+  levels_low = NULL,
+  levels_high = NULL
 )
 
 \method{st_density}{sf}(
@@ -36,7 +38,9 @@ st_density(
   n = NULL,
   bins = NULL,
   range.x = NULL,
-  truncate = TRUE
+  truncate = TRUE,
+  levels_low = NULL,
+  levels_high = NULL
 )
 }
 \arguments{

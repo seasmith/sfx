@@ -6,4 +6,5 @@ ngp <- read_sf("data-raw/ngp.geojson")
 # Get rid of Alaskan pipeline
 ngp <- ngp %>%
   st_semi_join(st_extent(states_map)) %>%
+  janitor::clean_names() %>%
   rmapshaper::ms_simplify()

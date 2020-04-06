@@ -55,6 +55,19 @@ olinda1_centroids %>%
 
 ![](README_files/figure-gfm/unnamed-chunk-1-2.png)<!-- -->
 
+``` r
+
+olinda1_centroids %>%
+    st_density("isoband") %>%
+    ggplot() +
+    geom_sf(aes(fill = level), alpha = 1) +
+    geom_sf(data = olinda1_centroids, color = "red", size = 2) +
+    scale_fill_viridis_c()
+## No bandwidth provided, using estimate: 0.0266888485440378No bandwidth provided, using estimate: 0.0218299889056418
+```
+
+![](README_files/figure-gfm/unnamed-chunk-1-3.png)<!-- -->
+
 Function list:
 
 ``` r
