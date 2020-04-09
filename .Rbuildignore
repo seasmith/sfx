@@ -1,6 +1,8 @@
 ^data-raw$
 ^docs$
+^README_files$
 ^README\.Rmd$
 ^README\.MD$
 ^README\.html$
+^_test.R$
 ^\.vscode$
