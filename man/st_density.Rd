@@ -13,8 +13,11 @@ st_density(
   bw = NULL,
   n = 200,
   bins = NULL,
-  range.x = NULL,
-  truncate = TRUE
+  truncate = TRUE,
+  x_expansion = NULL,
+  y_expansion = NULL,
+  levels_low = NULL,
+  levels_high = NULL
 )
 
 \method{st_density}{sfc}(
@@ -24,8 +27,9 @@ st_density(
   bw = NULL,
   n = NULL,
   bins = NULL,
-  range.x = NULL,
   truncate = TRUE,
+  x_expansion = NULL,
+  y_expansion = NULL,
   levels_low = NULL,
   levels_high = NULL
 )
@@ -37,28 +41,31 @@ st_density(
   bw = NULL,
   n = NULL,
   bins = NULL,
-  range.x = NULL,
   truncate = TRUE,
+  x_expansion = NULL,
+  y_expansion = NULL,
   levels_low = NULL,
   levels_high = NULL
 )
 }
 \arguments{
-\item{x}{(sf/sfc) Spatial data}
+\item{x}{(sf/sfc) [missing] Spatial data}
 
-\item{return_geometry}{(character) What gets returned?}
+\item{return_geometry}{[\code{"point}"] (character) What gets returned?}
 
-\item{method}{(character) How should density be computed?}
+\item{method}{(character) [\code{"kde2d}"] How should density be computed?}
 
-\item{bw}{(numeric) Binwidth}
+\item{bw}{(numeric) [\code{NULL}] Binwidth}
 
-\item{n}{(numeric) Grid size}
+\item{n}{(numeric) [\code{NULL}] Grid size}
 
-\item{bins}{(numeric) Number of contour bins}
+\item{bins}{(numeric) [\code{NULL}] Number of contour bins}
 
-\item{range.x}{(numeric-list) See \code{KernSmooth::bkde2D}}
+\item{truncate}{(logical) [\code{TRUE}] See \code{KernSmooth::bkde2D}}
 
-\item{truncate}{(logical) See \code{KernSmooth::bkde2D}}
+\item{x_expansion, y_expansion}{(numeric) [\code{NULL}] Expansion multiple
+applied to x-/y-range and used in \code{lims} and \code{range.x}
+arguments for methods \code{"kde2d"} and \code{"bkde2D"}, respectively.}
 }
 \description{
 Choose from methods \code{"kde2d"} and \code{"bkde2D"},

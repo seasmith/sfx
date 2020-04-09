@@ -92,27 +92,63 @@ reshape_density <- function (raw, grid, return_geometry) {
   df
 }
 
+compute_limits <- function (data,
+                            x_expansion,
+                            y_expansion,
+                            bw,
+                            method = "kde2d") {
+  switch(method,
+
+         kde2d = {
+           if (is.null(x_expansion)) {
+             x_expansion <- range(data[, "X"], na.rm = TRUE)
+           } else {
+             x_expansion <- rep(x_expansion, length.out = 2)
+             x_expansion <- c(1 - x_expansion[1], 1 + x_expansion[2])
+             rng <- range(data[, "X"], na.rm = TRUE)
+             x_expansion <- rng * (x_expansion)
+           }
+
+           if (is.null(y_expansion)) {
+             y_expansion <- range(data[, "Y"], na.rm = TRUE)
+           } else {
+             y_expansion <- rep(y_expansion, length.out = 2)
+             y_expansion <- c(1 - y_expansion[1], 1 + y_expansion[2])
+             rng <- range(data[, "X"], na.rm = TRUE)
+             y_expansion <- rng * (y_expansion)
+           }
+          return(c(x_expansion, y_expansion))
+         },
+
+         bkde2D = {
+           if (is.null(x_expansion)) {
+             x_expansion <- range(data[, "X"])
+             x_expansion[1] <- x_expansion[1] - 1.75 * bw[1]
+             x_expansion[2] <- x_expansion[2] + 1.75 * bw[1]
+           }
+
+           if (is.null(y_expansion)) {
+             y_expansion <- range(data[, "Y"])
+             y_expansion[1] <- y_expansion[1] - 1.75 * bw[2]
+             y_expansion[2] <- y_expansion[2] + 1.75 * bw[2]
+           }
+           return(list(x_expansion, y_expansion))
+         })
+}
+
 sf_compute_bkde2D <- function (data, return_geometry = "point",
                                bw = NULL, grid_size = c(51, 51),
-                               range.x = NULL, truncate = TRUE) {
+                               x_expansion = NULL,
+                               y_expansion = NULL,
+                               truncate = TRUE) {
 
   check_for_coords(data)
   bw <- check_for_bw(bw, data, m = "bkde2D")
-
-  if (length(grid_size) == 1) grid_size <- rep(grid_size, 2)
-
-  if (is.null(range.x)) {
-        x_range <- range(data[, "X"])
-        y_range <- range(data[, "Y"])
-        x_range[1] <- x_range[1] - 1.75 * bw[1]
-        x_range[2] <- x_range[2] + 1.75 * bw[1]
-        y_range[1] <- y_range[1] - 1.75 * bw[2]
-        y_range[2] <- y_range[2] + 1.75 * bw[2]
-        range.x <- list(x_range, y_range)
-    }
+  grid_size <- rep(grid_size, length.out = 2)
+  lims <- compute_limits(data, x_expansion, y_expansion)
 
   dens <- KernSmooth::bkde2D(as_matrix(x = data[, "X"], y = data[, "Y"]),
-                             bw, grid_size, range.x, truncate)
+                             bw, grid_size, lims, truncate)
 
   names(dens) <- c("x", "y", "z")
   df <- reshape_density(data, dens, return_geometry)
@@ -120,11 +156,14 @@ sf_compute_bkde2D <- function (data, return_geometry = "point",
 }
 
 sf_compute_kde2d <- function (data, return_geometry = "point",
-                              bw = NULL, n = 200, bins = NULL) {
+                              bw = NULL, n = 200, bins = NULL,
+                              x_expansion = NULL,
+                              y_expansion = NULL) {
 
   check_for_coords(data)
+  lims <- compute_limits(data, x_expansion, y_expansion)
   bw <- check_for_bw(bw, data, m = "kde2d")
-  dens <- MASS::kde2d(data[, "X"], data[, "Y"], h = bw, n = n)
+  dens <- MASS::kde2d(data[, "X"], data[, "Y"], h = bw, n = n, lims = lims)
   df <- reshape_density(data, dens, return_geometry)
   df
 }

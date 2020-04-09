@@ -5,28 +5,46 @@
 #' Choose from methods \code{"kde2d"} and \code{"bkde2D"},
 #' and various return geometries
 #'
-#' @param x (sf/sfc) Spatial data
-#' @param return_geometry (character) What gets returned?
-#' @param method (character) How should density be computed?
-#' @param bw (numeric) Binwidth
-#' @param n (numeric) Grid size
-#' @param bins (numeric) Number of contour bins
-#' @param range.x (numeric-list) See \code{KernSmooth::bkde2D}
-#' @param truncate (logical) See \code{KernSmooth::bkde2D}
+#' @param x (sf/sfc) [missing] Spatial data
+#' @param return_geometry [\code{"point}"] (character) What gets returned?
+#' @param method (character) [\code{"kde2d}"] How should density be computed?
+#' @param bw (numeric) [\code{NULL}] Binwidth
+#' @param n (numeric) [\code{NULL}] Grid size
+#' @param bins (numeric) [\code{NULL}] Number of contour bins
+#' @param truncate (logical) [\code{TRUE}] See \code{KernSmooth::bkde2D}
+#' @param x_expansion,y_expansion (numeric) [\code{NULL}] Expansion multiple
+#'  applied to x-/y-range and used in \code{lims} and \code{range.x}
+#'  arguments for methods \code{"kde2d"} and \code{"bkde2D"}, respectively.
 #'
 #' @name st_density
 #' @export
-st_density <- function (x, return_geometry = "point", method = "kde2d",
-                        bw = NULL, n = 200, bins = NULL, range.x = NULL,
-                        truncate = TRUE) {
+st_density <- function (x,
+                        return_geometry = "point",
+                        method = "kde2d",
+                        bw = NULL,
+                        n = 200,
+                        bins = NULL,
+                        truncate = TRUE,
+                        x_expansion = NULL,
+                        y_expansion = NULL,
+                        levels_low = NULL,
+                        levels_high = NULL) {
   UseMethod("st_density")
 }
 
 #' @name st_density
 #' @export
-st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
-                            bw = NULL, n = NULL, bins = NULL, range.x = NULL,
-                            truncate = TRUE, levels_low = NULL, levels_high = NULL) {
+st_density.sfc <- function (x,
+                            return_geometry = "point",
+                            method = "kde2d",
+                            bw = NULL,
+                            n = NULL,
+                            bins = NULL,
+                            truncate = TRUE,
+                            x_expansion = NULL,
+                            y_expansion = NULL,
+                            levels_low = NULL,
+                            levels_high = NULL) {
 
   data_coords <- sf::st_coordinates(x)
 
@@ -38,10 +56,12 @@ st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
 
   # Compute density by method and return geometry
   dens <- switch(method,
-                 kde2d = sf_compute_kde2d(data_coords, return_geometry, bw),
+                 kde2d = sf_compute_kde2d(data_coords, return_geometry, bw,
+                                          x_expansion, y_expansion),
 
                  bkde2D = sf_compute_bkde2D(data_coords, return_geometry,
-                                            bw, n, range.x, truncate))
+                                            bw, n, x_expansion, y_expansion,
+                                            truncate))
 
   switch(return_geometry,
 
