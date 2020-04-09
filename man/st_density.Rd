@@ -51,9 +51,9 @@ st_density(
 \arguments{
 \item{x}{(sf/sfc) [missing] Spatial data}
 
-\item{return_geometry}{[\code{"point}"] (character) What gets returned?}
+\item{return_geometry}{[\code{"point"}] (character) What gets returned?}
 
-\item{method}{(character) [\code{"kde2d}"] How should density be computed?}
+\item{method}{(character) [\code{"kde2d"}] How should density be computed?}
 
 \item{bw}{(numeric) [\code{NULL}] Binwidth}
 

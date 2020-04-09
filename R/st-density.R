@@ -6,15 +6,15 @@
 #' and various return geometries
 #'
 #' @param x (sf/sfc) [missing] Spatial data
-#' @param return_geometry [\code{"point}"] (character) What gets returned?
-#' @param method (character) [\code{"kde2d}"] How should density be computed?
+#' @param return_geometry [\code{"point"}] (character) What gets returned?
+#' @param method (character) [\code{"kde2d"}] How should density be computed?
 #' @param bw (numeric) [\code{NULL}] Binwidth
 #' @param n (numeric) [\code{NULL}] Grid size
 #' @param bins (numeric) [\code{NULL}] Number of contour bins
 #' @param truncate (logical) [\code{TRUE}] See \code{KernSmooth::bkde2D}
 #' @param x_expansion,y_expansion (numeric) [\code{NULL}] Expansion multiple
-#'  applied to x-/y-range and used in \code{lims} and \code{range.x}
-#'  arguments for methods \code{"kde2d"} and \code{"bkde2D"}, respectively.
+#'   applied to x-/y-range and used in \code{lims} and \code{range.x}
+#'   arguments for methods \code{"kde2d"} and \code{"bkde2D"}, respectively.
 #'
 #' @name st_density
 #' @export
@@ -84,9 +84,9 @@ st_density.sfc <- function (x,
                                           levels_low = levels_low,
                                           levels_high = levels_high)
             iso_band <- isoband::iso_to_sfg(iso_band)
-            x <- st_sf(level = seq_len(length(iso_band)),
-                       crs = sf::st_crs(x),
-                       geometry = sf::st_sfc(iso_band))
+            x <- sf::st_sf(level = seq_len(length(iso_band)),
+                           crs = sf::st_crs(x),
+                           geometry = sf::st_sfc(iso_band))
           })
 
   x
