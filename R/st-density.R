@@ -13,12 +13,16 @@
 #' @param bins (numeric) Number of contour bins
 #' @param range.x (numeric-list) See \code{KernSmooth::bkde2D}
 #' @param truncate (logical) See \code{KernSmooth::bkde2D}
+#' @param levels_high,levels_low (numeric) Low/high breakpoints
+#'  for isolines and isobands.
 #'
 #' @name st_density
 #' @export
 st_density <- function (x, return_geometry = "point", method = "kde2d",
                         bw = NULL, n = 200, bins = NULL, range.x = NULL,
-                        truncate = TRUE) {
+                        truncate = TRUE,
+                        levels_low = NULL,
+                        levels_high = NULL) {
   UseMethod("st_density")
 }
 
@@ -29,6 +33,7 @@ st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
                             truncate = TRUE, levels_low = NULL, levels_high = NULL) {
 
   data_coords <- sf::st_coordinates(x)
+  x_crs <- sf::st_crs(x)
 
   if (is.null(n)) {
     n <- switch(method,
@@ -50,7 +55,14 @@ st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
             x$ndensity <- dens$ndensity
           },
 
-          raster = {},
+          grid = {
+            x <- sf::st_as_sf(dens, coords = c("x", "y"), crs = x_crs)
+          },
+
+          raster = {
+            x <- sf_grid_to_polygon(dens, coords = c("x", "y"), crs = x_crs)
+
+          },
 
           isoband = {
             if (is.null(levels_high) | is.null(levels_low)) {
@@ -64,9 +76,9 @@ st_density.sfc <- function (x, return_geometry = "point", method = "kde2d",
                                           levels_low = levels_low,
                                           levels_high = levels_high)
             iso_band <- isoband::iso_to_sfg(iso_band)
-            x <- st_sf(level = seq_len(length(iso_band)),
-                       crs = sf::st_crs(x),
-                       geometry = sf::st_sfc(iso_band))
+            x <- sf::st_sf(level = seq_len(length(iso_band)),
+                           crs = x_crs,
+                           geometry = sf::st_sfc(iso_band))
           })
 
   x
