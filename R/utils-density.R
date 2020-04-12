@@ -105,8 +105,8 @@ compute_limits <- function (data,
            } else {
              x_expansion <- rep(x_expansion, length.out = 2)
              x_expansion <- c(1 - x_expansion[1], 1 + x_expansion[2])
-             rng <- range(data[, "X"], na.rm = TRUE)
-             x_expansion <- rng * (x_expansion)
+             rng_x <- range(data[, "X"], na.rm = TRUE)
+             rng_x <- rng_x * (x_expansion)
            }
 
            if (is.null(y_expansion)) {
@@ -114,25 +114,25 @@ compute_limits <- function (data,
            } else {
              y_expansion <- rep(y_expansion, length.out = 2)
              y_expansion <- c(1 - y_expansion[1], 1 + y_expansion[2])
-             rng <- range(data[, "X"], na.rm = TRUE)
-             y_expansion <- rng * (y_expansion)
+             rng_y <- range(data[, "Y"], na.rm = TRUE)
+             rng_y <- rng_y * (y_expansion)
            }
-          return(c(x_expansion, y_expansion))
+          return(c(rng_x, rng_y))
          },
 
          bkde2D = {
            if (is.null(x_expansion)) {
-             x_expansion <- range(data[, "X"])
-             x_expansion[1] <- x_expansion[1] - 1.75 * bw[1]
-             x_expansion[2] <- x_expansion[2] + 1.75 * bw[1]
+             rng_x <- range(data[, "X"])
+             rng_x[1] <- rng_x[1] - 1.75 * bw[1]
+             rng_x[2] <- rng_x[2] + 1.75 * bw[1]
            }
 
            if (is.null(y_expansion)) {
-             y_expansion <- range(data[, "Y"])
-             y_expansion[1] <- y_expansion[1] - 1.75 * bw[2]
-             y_expansion[2] <- y_expansion[2] + 1.75 * bw[2]
+             rng_y <- range(data[, "Y"])
+             rng_y[1] <- rng_y[1] - 1.75 * bw[2]
+             rng_y[2] <- rng_y[2] + 1.75 * bw[2]
            }
-           return(list(x_expansion, y_expansion))
+           return(list(rng_x, rng_y))
          })
 }
 
