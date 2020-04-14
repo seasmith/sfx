@@ -101,7 +101,7 @@ compute_limits <- function (data,
 
          kde2d = {
            if (is.null(x_expansion)) {
-             x_expansion <- range(data[, "X"], na.rm = TRUE)
+             rng_x <- range(data[, "X"], na.rm = TRUE)
            } else {
              x_expansion <- rep(x_expansion, length.out = 2)
              x_expansion <- c(1 - x_expansion[1], 1 + x_expansion[2])
@@ -110,7 +110,7 @@ compute_limits <- function (data,
            }
 
            if (is.null(y_expansion)) {
-             y_expansion <- range(data[, "Y"], na.rm = TRUE)
+             rng_y <- range(data[, "Y"], na.rm = TRUE)
            } else {
              y_expansion <- rep(y_expansion, length.out = 2)
              y_expansion <- c(1 - y_expansion[1], 1 + y_expansion[2])
