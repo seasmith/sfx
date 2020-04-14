@@ -15,6 +15,8 @@
 #' @param x_expansion,y_expansion (numeric) [\code{NULL}] Expansion multiple
 #'   applied to x-/y-range and used in \code{lims} and \code{range.x}
 #'   arguments for methods \code{"kde2d"} and \code{"bkde2D"}, respectively.
+#' @param levels_high,levels_low (numeric) Low/high breakpoints
+#'  for isolines and isobands.
 #'
 #' @name st_density
 #' @export
@@ -29,6 +31,7 @@ st_density <- function (x,
                         y_expansion = NULL,
                         levels_low = NULL,
                         levels_high = NULL) {
+
   UseMethod("st_density")
 }
 
@@ -47,6 +50,7 @@ st_density.sfc <- function (x,
                             levels_high = NULL) {
 
   data_coords <- sf::st_coordinates(x)
+  x_crs <- sf::st_crs(x)
 
   if (is.null(n)) {
     n <- switch(method,
@@ -70,7 +74,14 @@ st_density.sfc <- function (x,
             x$ndensity <- dens$ndensity
           },
 
-          raster = {},
+          grid = {
+            x <- sf::st_as_sf(dens, coords = c("x", "y"), crs = x_crs)
+          },
+
+          raster = {
+            x <- sf_grid_to_polygon(dens, coords = c("x", "y"), crs = x_crs)
+
+          },
 
           isoband = {
             if (is.null(levels_high) | is.null(levels_low)) {
@@ -85,7 +96,7 @@ st_density.sfc <- function (x,
                                           levels_high = levels_high)
             iso_band <- isoband::iso_to_sfg(iso_band)
             x <- sf::st_sf(level = seq_len(length(iso_band)),
-                           crs = sf::st_crs(x),
+                           crs = x_crs,
                            geometry = sf::st_sfc(iso_band))
           })
 
