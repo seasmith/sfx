@@ -10,18 +10,40 @@ compute_limits <- function (data,
              rng_x <- range(data[, "X"], na.rm = TRUE)
            } else {
              x_expansion <- rep(x_expansion, length.out = 2)
-             x_expansion <- c(1 - x_expansion[1], 1 + x_expansion[2])
              rng_x <- range(data[, "X"], na.rm = TRUE)
-             rng_x <- rng_x * (x_expansion)
+             dist_x <- as.vector(dist(rng_x))
+
+             if (x_expansion[1] > 0) {
+                 rng_x[1] <- rng_x[1] - abs(x_expansion[1] * dist_x)
+             } else {
+                 rng_x[1] <- rng_x[1] - abs(x_expansion[1] * dist_x)
+             }
+
+             if (x_expansion[2] > 0) {
+                 rng_x[2] <- rng_x[2] + abs(x_expansion[2] * dist_x)
+             } else {
+                 rng_x[2] <- rng_x[2] + abs(x_expansion[2] * dist_x)
+             }
            }
 
            if (is.null(y_expansion)) {
              rng_y <- range(data[, "Y"], na.rm = TRUE)
            } else {
              y_expansion <- rep(y_expansion, length.out = 2)
-             y_expansion <- c(1 - y_expansion[1], 1 + y_expansion[2])
              rng_y <- range(data[, "Y"], na.rm = TRUE)
-             rng_y <- rng_y * (y_expansion)
+             dist_y <- as.vector(dist(rng_y))
+
+             if (y_expansion[1] > 0) {
+                 rng_y[1] <- rng_y[1] - abs(y_expansion[1] * dist_y)
+             } else {
+                 rng_y[1] <- rng_y[1] - abs(y_expansion[1] * dist_y)
+             }
+
+             if (y_expansion[2] > 0) {
+                 rng_y[2] <- rng_y[2] + abs(y_expansion[2] * dist_y)
+             } else {
+                 rng_y[2] <- rng_y[2] + abs(y_expansion[2] * dist_y)
+             }
            }
           return(c(rng_x, rng_y))
          },
