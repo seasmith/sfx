@@ -60,7 +60,7 @@ st_density.sfc <- function (x,
 
   # Compute density by method and return geometry
   dens <- switch(method,
-                 kde2d = sf_compute_kde2d(data_coords, return_geometry, bw,
+                 kde2d = sf_compute_kde2d(data_coords, return_geometry, bw, n,
                                           x_expansion, y_expansion),
 
                  bkde2D = sf_compute_bkde2D(data_coords, return_geometry,
@@ -80,12 +80,13 @@ st_density.sfc <- function (x,
 
           raster = {
             x <- sf_grid_to_polygon(dens, coords = c("x", "y"), crs = x_crs)
-
+            x$density  <- dens$density
+            x$ndensity <- dens$ndensity
           },
 
           isoband = {
             if (is.null(levels_high) | is.null(levels_low)) {
-              levels_low <- .05 * (0:20)
+              levels_low  <- .05 * (0:20)
               levels_high <- .05 * (1:21)
             }
             iso_matrix <- tapply(dens$ndensity, dens[, c("y", "x")], identity)
