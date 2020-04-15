@@ -18,7 +18,7 @@ sf_compute_bkde2D <- function (data, return_geometry = "point",
 }
 
 sf_compute_kde2d <- function (data, return_geometry = "point",
-                              bw = NULL, n = 200, bins = NULL,
+                              bw = NULL, n = 200,
                               x_expansion = NULL,
                               y_expansion = NULL) {
 
