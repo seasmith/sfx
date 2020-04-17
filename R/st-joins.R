@@ -55,6 +55,9 @@ st_left_join <- function (x, y, ...) sf::st_join(x, y, left = TRUE, ...)
 #' @name st_joins
 #' @export
 st_inner_join <- function (x, y, ...) sf::st_join(x, y, left = FALSE, ...)
+#' @name st_joins
+#' @export
+st_right_join <- function (x, y, ...) sf::st_join(y, x, left = TRUE, ...)
 
 #' @name st_joins
 #' @export

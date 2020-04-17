@@ -4,6 +4,7 @@
 \alias{st_joins}
 \alias{st_left_join}
 \alias{st_inner_join}
+\alias{st_right_join}
 \alias{st_semi_join}
 \alias{st_anti_join}
 \title{Join two 'sf' objects.}
@@ -11,6 +12,8 @@
 st_left_join(x, y, ...)
 
 st_inner_join(x, y, ...)
+
+st_right_join(x, y, ...)
 
 st_semi_join(x, y, join = sf::st_intersects, ...)
 
