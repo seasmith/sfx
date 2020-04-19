@@ -66,6 +66,9 @@ st_density(
 \item{x_expansion, y_expansion}{(numeric) [\code{NULL}] Expansion multiple
 applied to x-/y-range and used in \code{lims} and \code{range.x}
 arguments for methods \code{"kde2d"} and \code{"bkde2D"}, respectively.}
+
+\item{levels_high, levels_low}{(numeric) Low/high breakpoints
+for isolines and isobands.}
 }
 \description{
 Choose from methods \code{"kde2d"} and \code{"bkde2D"},
