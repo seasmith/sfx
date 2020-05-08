@@ -49,6 +49,7 @@ st_density.sfc <- function (x,
                             levels_low = NULL,
                             levels_high = NULL) {
 
+  if (!inherits(x, "sf")) stop("[st_density]: 'x' must inherit 'sf'.")
   data_coords <- sf::st_coordinates(x)
   x_crs <- sf::st_crs(x)
 
