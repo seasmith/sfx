@@ -84,6 +84,10 @@ st_density.sfc <- function (x,
             x$ndensity <- dens$ndensity
           },
 
+          polygon = {
+
+          },
+
           isoband = {
             if (is.null(levels_high) | is.null(levels_low)) {
               levels_low  <- .05 * (0:20)

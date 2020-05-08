@@ -1,8 +1,22 @@
+compute_expansion <- function (return, method) {
+  if (return_type == "polygon" & method == "kde2d") {
+    x_expansion <- 0.15
+    y_expansion <- 0.15
+  }
+
+  # RETURN
+  c(x_expansion, y_expansion)
+}
+
 compute_limits <- function (data,
+                            return_type,
                             x_expansion,
                             y_expansion,
                             bw,
                             method = "kde2d") {
+  if(is.null(x_expansion) & is.null(y_expansion)) ex <- compute_expansion
+  x_expansion <- ex[1]
+  y_expansion <- ex[2]
   switch(method,
 
          kde2d = {

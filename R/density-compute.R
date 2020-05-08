@@ -7,7 +7,9 @@ sf_compute_bkde2D <- function (data, return_geometry = "point",
   check_for_coords(data)
   bw <- check_for_bw(bw, data, m = "bkde2D")
   grid_size <- rep(grid_size, length.out = 2)
-  lims <- compute_limits(data, x_expansion, y_expansion)
+  lims <- compute_limits(data, return_geometry,
+                         x_expansion, y_expansion,
+                         bw, "bkde2D")
 
   dens <- KernSmooth::bkde2D(as_matrix(x = data[, "X"], y = data[, "Y"]),
                              bw, grid_size, lims, truncate)
@@ -23,7 +25,7 @@ sf_compute_kde2d <- function (data, return_geometry = "point",
                               y_expansion = NULL) {
 
   check_for_coords(data)
-  lims <- compute_limits(data, x_expansion, y_expansion)
+  lims <- compute_limits(data, return_geometry, x_expansion, y_expansion)
   bw <- check_for_bw(bw, data, m = "kde2d")
   dens <- MASS::kde2d(data[, "X"], data[, "Y"], h = bw, n = n, lims = lims)
   df <- reshape_density(data, dens, return_geometry)
