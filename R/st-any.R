@@ -37,10 +37,8 @@ NULL
 #'
 #' head(j)
 #' @rdname st_any
-#' @export
 st_any <- function (x, at_least = 1L, at_most = Inf) UseMethod("st_any")
 
-#' @export
 st_any.sgbp <- function (x, at_least = 1L, at_most = Inf) {
 
   x_int <- x %>%
@@ -51,7 +49,6 @@ st_any.sgbp <- function (x, at_least = 1L, at_most = Inf) {
 
 }
 
-#' @export
 st_any.matrix <- function (x, at_least = 1L, at_most = Inf) {
 
   x_int <- x %>%
@@ -111,41 +108,28 @@ st_any_bin_log_factory <- function(fun) {
 #'
 #' head(i)
 #' @name any_binary_pred
-#' @export
 st_any_intersects         <- st_any_bin_log_factory(sf::st_intersects)
 #' @name any_binary_pred
-#' @export
 st_any_contains           <- st_any_bin_log_factory(sf::st_contains)
 #' @name any_binary_pred
-#' @export
 st_any_contains_properly  <- st_any_bin_log_factory(sf::st_contains_properly)
 #' @name any_binary_pred
-#' @export
 st_any_covered_by         <- st_any_bin_log_factory(sf::st_covered_by)
 #' @name any_binary_pred
-#' @export
 st_any_covers             <- st_any_bin_log_factory(sf::st_covers)
 #' @name any_binary_pred
-#' @export
 st_any_crosses            <- st_any_bin_log_factory(sf::st_crosses)
 #' @name any_binary_pred
-#' @export
 st_any_disjoint           <- st_any_bin_log_factory(sf::st_disjoint)
 #' @name any_binary_pred
-#' @export
 st_any_equals             <- st_any_bin_log_factory(sf::st_equals)
 #' @name any_binary_pred
-#' @export
 st_any_equals_exact       <- st_any_bin_log_factory(sf::st_equals_exact)
 #' @name any_binary_pred
-#' @export
 st_any_is_within_distance <- st_any_bin_log_factory(sf::st_is_within_distance)
 #' @name any_binary_pred
-#' @export
 st_any_overlaps           <- st_any_bin_log_factory(sf::st_overlaps)
 #' @name any_binary_pred
-#' @export
 st_any_touches            <- st_any_bin_log_factory(sf::st_touches)
 #' @name any_binary_pred
-#' @export
 st_any_within             <- st_any_bin_log_factory(sf::st_within)

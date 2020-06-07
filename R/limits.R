@@ -2,6 +2,9 @@ compute_expansion <- function (return_type, method) {
   if (return_type == "polygon" & method == "kde2d") {
     x_expansion <- 0.15
     y_expansion <- 0.15
+  } else {
+     x_expansion <- 0
+     y_expansion <- 0
   }
 
   # RETURN

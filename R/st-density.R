@@ -86,7 +86,7 @@ st_density.sfc <- function (x,
           },
 
           polygon = {
-
+            # go to isoband
           },
 
           isoband = {
