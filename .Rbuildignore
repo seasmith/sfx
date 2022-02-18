@@ -6,3 +6,5 @@
 ^README\.html$
 ^_test.R$
 ^\.vscode$
+^.*\.Rproj$
+^\.Rproj\.user$
