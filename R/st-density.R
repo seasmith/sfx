@@ -80,9 +80,8 @@ st_density.sfc <- function (x,
           },
 
           raster = {
-            x <- sf_grid_to_polygon(dens, coords = c("x", "y"), crs = x_crs)
-            x$density  <- dens$density
-            x$ndensity <- dens$ndensity
+            if (length(n) < 2) n <- rep(n, 2)
+            x <- stars::st_rasterize(dens, nx = n[1], ny = n[2])
           },
 
           polygon = {
