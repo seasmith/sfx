@@ -80,8 +80,12 @@ st_density.sfc <- function (x,
           },
 
           raster = {
-            if (length(n) < 2) n <- rep(n, 2)
-            x <- stars::st_rasterize(dens, nx = n[1], ny = n[2])
+            # also: https://gis.stackexchange.com/questions/265094/r-grid-of-polygons-to-raster-file-for-esri
+            # if (length(n) < 2) n <- rep(n, 2)
+            # x <- stars::st_rasterize(dens, nx = n[1], ny = n[2])
+            x <- dens %>%
+              sf::st_as_sf(coords = c("x", "y"), crs = x_crs) %>%
+              stars::st_rasterize() # specify nx/ny?
           },
 
           polygon = {
