@@ -1,7 +1,7 @@
 check_for_bw <- function (x, d, m) {
   if (is.null(x)) {
     x <- estimate_bw(d, method = m)
-    message("No bandwidth provided, using estimate: " %P% x)
+    message(paste0("No bandwidth provided, using estimate: ", x, collapse = "\n"))
   }
 
   x

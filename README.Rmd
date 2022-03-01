@@ -28,6 +28,7 @@ olinda1_centroids <- olinda1  %>%
 
 ## Point
 ```{r}
+# MASS::kde2d kernel (default)
 olinda1_centroids %>%
     st_density() %>%
     ggplot() +
@@ -36,6 +37,7 @@ olinda1_centroids %>%
     scale_color_viridis_c() +
     theme_void()
 
+# KernSmooth::bkde2D kernel
 olinda1_centroids %>%
     st_density(method = "bkde2D") %>%
     ggplot() +

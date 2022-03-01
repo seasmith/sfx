@@ -32,6 +32,7 @@ olinda1_centroids <- olinda1  %>%
 ## Point
 
 ``` r
+# MASS::kde2d kernel (default)
 olinda1_centroids %>%
     st_density() %>%
     ggplot() +
@@ -41,11 +42,13 @@ olinda1_centroids %>%
     theme_void()
 ```
 
-    ## No bandwidth provided, using estimate: 0.0266888491366906No bandwidth provided, using estimate: 0.0218299890189734
+    ## No bandwidth provided, using estimate: 0.0266888491366906
+    ## No bandwidth provided, using estimate: 0.0218299890189734
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
+# KernSmooth::bkde2D kernel
 olinda1_centroids %>%
     st_density(method = "bkde2D") %>%
     ggplot() +
@@ -55,7 +58,8 @@ olinda1_centroids %>%
     theme_void()
 ```
 
-    ## No bandwidth provided, using estimate: 0.00440286131103809No bandwidth provided, using estimate: 0.00457288717649596
+    ## No bandwidth provided, using estimate: 0.00440286131103809
+    ## No bandwidth provided, using estimate: 0.00457288717649596
 
 ![](README_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
 
@@ -70,7 +74,8 @@ olinda1_centroids %>%
     scale_fill_viridis_c()
 ```
 
-    ## No bandwidth provided, using estimate: 0.0266888491366906No bandwidth provided, using estimate: 0.0218299890189734
+    ## No bandwidth provided, using estimate: 0.0266888491366906
+    ## No bandwidth provided, using estimate: 0.0218299890189734
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -80,8 +85,8 @@ olinda1_centroids %>%
 # NOT WORKING AS EXPECTED
 olinda1_centroids %>%
     st_density(return_geometry = "raster", n = 50) %>%
-    # use lambda expr to target . inside geom_stars or
-    # else ggplot() will error on fortify() attempt
+    # use lambda expr to place . inside geom_stars
+    # or else ggplot() will error on fortify() attempt
     {
       ggplot() +
         geom_stars(data = .) +
@@ -93,7 +98,8 @@ olinda1_centroids %>%
     }
 ```
 
-    ## No bandwidth provided, using estimate: 0.0266888491366906No bandwidth provided, using estimate: 0.0218299890189734
+    ## No bandwidth provided, using estimate: 0.0266888491366906
+    ## No bandwidth provided, using estimate: 0.0218299890189734
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
