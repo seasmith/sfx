@@ -32,6 +32,7 @@ olinda1_centroids <- olinda1  %>%
 ## Point
 
 ``` r
+# MASS::kde2d kernel (default)
 olinda1_centroids %>%
     st_density() %>%
     ggplot() +
@@ -46,6 +47,7 @@ olinda1_centroids %>%
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
+# KernSmooth::bkde2D kernel
 olinda1_centroids %>%
     st_density(method = "bkde2D") %>%
     ggplot() +
@@ -80,8 +82,8 @@ olinda1_centroids %>%
 # NOT WORKING AS EXPECTED
 olinda1_centroids %>%
     st_density(return_geometry = "raster", n = 50) %>%
-    # use lambda expr to target . inside geom_stars or
-    # else ggplot() will error on fortify() attempt
+    # use lambda expr to place . inside geom_stars
+    # or else ggplot() will error on fortify() attempt
     {
       ggplot() +
         geom_stars(data = .) +
