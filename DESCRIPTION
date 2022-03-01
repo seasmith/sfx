@@ -20,6 +20,7 @@ Imports:
     magrittr,
     MASS,
     sf,
+    stars,
     stats
 Suggests:
     ggplot2,
