@@ -8,7 +8,11 @@ output: github_document
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Still a work-in-progress -- not all features are available or behave properly (i.e. `st_density(return_geometry = "raster")`).
+Still a work-in-progress -- I want to add a few more features, such as:
+  
+  * Random density points (random points with density values? why? guassian distribution for sampling?)
+  * Alternative density methods.
+  
 
 See the [Reference section][ref_sec] for detailed examples.
 
@@ -40,6 +44,18 @@ olinda1_centroids %>%
 # KernSmooth::bkde2D kernel
 olinda1_centroids %>%
     st_density(method = "bkde2D") %>%
+    ggplot() +
+    geom_sf(data = olinda1, fill = NA, color = "gray80") +
+    geom_sf(aes(color = density)) +
+    scale_color_viridis_c() +
+    theme_void()
+```
+
+## Grid
+```{r}
+# n = 10 produces a 10x10 grid
+olinda1_centroids %>%
+    st_density(return_geometry = "grid", n = 10) %>%
     ggplot() +
     geom_sf(data = olinda1, fill = NA, color = "gray80") +
     geom_sf(aes(color = density)) +
@@ -81,6 +97,12 @@ olinda1_centroids %>%
 # Density estimation (kernel based)
 st_density
 
+# Joins
+st_inner_join
+st_left_join
+st_anti_join
+st_semi_join
+
 # Convert logical matrix to logical vector
 st_any
 
@@ -98,12 +120,6 @@ st_any_is_within_distance
 st_any_overlaps
 st_any_touches
 st_any_within
-
-# Joins
-st_inner_join
-st_left_join
-st_anti_join
-st_semi_join
 
 # Unitless dimensions
 st_ul_area
