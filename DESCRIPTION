@@ -3,9 +3,9 @@ Type: Package
 Title: Extra functions for Simple Features manipulation
 Version: 0.0.1
 Depends: R (>= 2.10)
-Authors@R: c(
-    person(given = "Luke", family = "Smith", email = "lukedansmi@sbcglobal.net", role = c("aut", "cre"))
-    )
+Author: Luke Smith <lukedansmi@sbcglobal.net>
+Maintainer: Luke Smith <lukedansmi@sbcglobal.net>
+Authors@R: person("Luke", "Smith", email = "lukedansmi@sbcglobal.net", role = c("aut", "cre"))
 Description: Filter, join, measure, and other functions to extend the 'sf' 
     package.
 License: GPL-2
