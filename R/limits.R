@@ -11,6 +11,13 @@ compute_expansion <- function (return_type, method) {
   c(x_expansion, y_expansion)
 }
 
+#' Compute the limits/expansion
+#' 
+#' `kde2d` does not use `bw` argument.
+#' `bkde2D` does use `bw` argument.
+#' 
+#' `kde2d`
+
 compute_limits <- function (data,
                             return_type,
                             x_expansion,
