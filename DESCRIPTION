@@ -25,4 +25,4 @@ Imports:
 Suggests:
     ggplot2,
     lwgeom
-RoxygenNote: 7.1.0
+RoxygenNote: 7.3.2

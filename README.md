@@ -1,22 +1,25 @@
+---
+output: github_document
+---
 
-# Extra ‘sf’ Simple Features manipulations
+# Extra 'sf' Simple Features manipulations
 
 [![CRAN](http://www.r-pkg.org/badges/version/sfx)](https://cran.r-project.org/package=sfx)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Still a work-in-progress – I want to add a few more features, such as:
+Still a work-in-progress -- I want to add a few more features, such as:
+  
+  * Random density points (random points with density values? why? guassian distribution for sampling?)
+  * Alternative density methods.
+  
 
-- Random density points (random points with density values? why?
-  guassian distribution for sampling?)
-- Alternative density methods.
+See the [Reference section][ref_sec] for detailed examples.
 
-See the [Reference
-section](http://seasmith.github.io/packages/sfx/reference/index.html)
-for detailed examples.
+[ref_sec]: http://seasmith.github.io/packages/sfx/reference/index.html
 
-``` r
+
+```r
 library(sf)
 ## Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
 library(sfx)
@@ -33,7 +36,7 @@ olinda1_centroids <- olinda1  %>%
 
 ## Point
 
-``` r
+```r
 # MASS::kde2d kernel (default)
 olinda1_centroids %>%
     st_density() %>%
@@ -44,12 +47,14 @@ olinda1_centroids %>%
     theme_void()
 ```
 
-    ## No bandwidth provided, using estimate: 0.0266888491395869
-    ## No bandwidth provided, using estimate: 0.0218299890185301
+```
+## No bandwidth provided, using estimate: 0.0266888491395869
+## No bandwidth provided, using estimate: 0.0218299890185301
+```
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
-``` r
+```r
 # KernSmooth::bkde2D kernel
 olinda1_centroids %>%
     st_density(method = "bkde2D") %>%
@@ -60,14 +65,16 @@ olinda1_centroids %>%
     theme_void()
 ```
 
-    ## No bandwidth provided, using estimate: 0.00440286131364212
-    ## No bandwidth provided, using estimate: 0.00457288717354617
+```
+## No bandwidth provided, using estimate: 0.00440286131364212
+## No bandwidth provided, using estimate: 0.00457288717354617
+```
 
-![](README_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-2.png)
 
 ## Grid
 
-``` r
+```r
 # n = 10 produces a 10x10 grid
 olinda1_centroids %>%
     st_density(return_geometry = "grid", n = 10) %>%
@@ -78,14 +85,36 @@ olinda1_centroids %>%
     theme_void()
 ```
 
-    ## No bandwidth provided, using estimate: 0.0266888491395869
-    ## No bandwidth provided, using estimate: 0.0218299890185301
+```
+## No bandwidth provided, using estimate: 0.0266888491395869
+## No bandwidth provided, using estimate: 0.0218299890185301
+```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+
+## Contour
+
+```r
+olinda1_centroids %>%
+    st_density(return_geometry = "contour") %>%
+    ggplot() +
+    geom_sf(data = olinda1, fill = NA, color = "gray80") +
+    geom_sf(aes(color = level)) +
+    geom_sf(data = olinda1_centroids, color = "red", size = 2) +
+    scale_color_viridis_c() +
+    theme_void()
+```
+
+```
+## No bandwidth provided, using estimate: 0.0266888491395869
+## No bandwidth provided, using estimate: 0.0218299890185301
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 ## Isoband
 
-``` r
+```r
 olinda1_centroids %>%
     st_density(return_geometry = "isoband") %>%
     ggplot() +
@@ -94,14 +123,16 @@ olinda1_centroids %>%
     scale_fill_viridis_c()
 ```
 
-    ## No bandwidth provided, using estimate: 0.0266888491395869
-    ## No bandwidth provided, using estimate: 0.0218299890185301
+```
+## No bandwidth provided, using estimate: 0.0266888491395869
+## No bandwidth provided, using estimate: 0.0218299890185301
+```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 ## Raster
 
-``` r
+```r
 # NOT WORKING AS EXPECTED
 olinda1_centroids %>%
     st_density(return_geometry = "raster", n = 50) %>%
@@ -118,14 +149,17 @@ olinda1_centroids %>%
     }
 ```
 
-    ## No bandwidth provided, using estimate: 0.0266888491395869
-    ## No bandwidth provided, using estimate: 0.0218299890185301
+```
+## No bandwidth provided, using estimate: 0.0266888491395869
+## No bandwidth provided, using estimate: 0.0218299890185301
+```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 ## Current Functions
 
-``` r
+
+```r
 # Density estimation (kernel based)
 st_density
 
@@ -168,7 +202,8 @@ st_ylim
 
 ## Future Functions?
 
-``` r
+
+```r
 geom_sf_density()
 plot_sf_density()
 ```

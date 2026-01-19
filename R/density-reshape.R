@@ -11,8 +11,12 @@ reshape_density <- function (raw, grid, return_geometry) {
          raster  = ,
          polygon = ,
          contour = ,
+         isoline = ,
          isoband = {
            df <- expand_density(grid$x, grid$y, grid$z)
+         },
+         {
+           stop("Unknown return_geometry: ", return_geometry)
          })
   df$ndensity <- df$density / max(df$density, na.rm = TRUE)
   df

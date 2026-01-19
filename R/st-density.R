@@ -6,7 +6,9 @@
 #' and various return geometries
 #'
 #' @param x (sf/sfc) [missing] Spatial data
-#' @param return_geometry [\code{"point"}] (character) What gets returned?
+#' @param return_geometry [\code{"point"}] (character) The geometry type to return.
+#'   Options: \code{"point"}, \code{"raster"}, \code{"contour"}/\code{"isoline"},
+#'   \code{"polygon"}/\code{"isoband"}.
 #' @param method (character) [\code{"kde2d"}] How should density be computed?
 #' @param bw (numeric) [\code{NULL}] Binwidth
 #' @param n (numeric) [\code{NULL}] Grid size
@@ -87,11 +89,21 @@ st_density.sfc <- function (x,
               sf::st_as_sf(coords = c("x", "y"), crs = x_crs) %>%
               stars::st_rasterize() # specify nx/ny?
           },
-
-          polygon = {
-            # go to isoband
+          contour = , # use isoline
+          isoline = {
+            if (is.null(levels_low)) {
+              levels_low <- .05 * (0:20)
+            }
+            iso_matrix <- tapply(dens$ndensity, dens[, c("y", "x")], identity)
+            iso_lines <- isoband::isolines(unique(dens$x),
+                                           unique(dens$y),
+                                           iso_matrix,
+                                           levels = levels_low)
+            iso_lines <- isoband::iso_to_sfg(iso_lines)
+            x <- sf::st_sf(level = 1:length(iso_lines),
+                           geometry = sf::st_sfc(iso_lines, crs = x_crs))
           },
-
+          polygon = ,  # use isoband
           isoband = {
             if (is.null(levels_high) | is.null(levels_low)) {
               levels_low  <- .05 * (0:20)

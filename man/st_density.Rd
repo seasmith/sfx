@@ -51,7 +51,9 @@ st_density(
 \arguments{
 \item{x}{(sf/sfc) [missing] Spatial data}
 
-\item{return_geometry}{[\code{"point"}] (character) What gets returned?}
+\item{return_geometry}{[\code{"point"}] (character) The geometry type to return.
+Options: \code{"point"}, \code{"raster"}, \code{"contour"}/\code{"isoline"},
+\code{"polygon"}/\code{"isoband"}.}
 
 \item{method}{(character) [\code{"kde2d"}] How should density be computed?}
 

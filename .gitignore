@@ -5,3 +5,7 @@ data-raw/pa-wells.csv
 data-raw/wells.geojson
 .vscode/vscode-R/response.log
 .Rproj.user
+venv
+.DS_Store
+.Rhistory
+debug_*
